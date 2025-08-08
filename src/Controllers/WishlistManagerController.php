@@ -18,8 +18,7 @@ class WishlistManagerController extends Controller
     public function index(Request $request)
     {
         try {
-            $wishlists = Wishlist::filter($request->query('keyword'))
-                ->filterByStatus($request->query('status'))
+            $wishlists = Wishlist::with(['user', 'product'])
                 ->sortable()
                 ->latest()
                 ->paginate(Wishlist::getPerPageLimit())
@@ -30,6 +29,7 @@ class WishlistManagerController extends Controller
             return redirect()->back()->with('error', 'Failed to load Wishlist: ' . $e->getMessage());
         }
     }
+
 
     public function show(Wishlist $wishlist)
     {

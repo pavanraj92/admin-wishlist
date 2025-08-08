@@ -1,12 +1,14 @@
 <?php
 
-namespace admin\pages\Models;
+namespace admin\wishlists\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Config;
 use Kyslik\ColumnSortable\Sortable;
+use App\Models\User;
+use App\Models\Product;
 
 class Wishlist extends Model
 {
@@ -52,5 +54,15 @@ class Wishlist extends Model
         return Config::has('get.admin_page_limit')
             ? Config::get('get.admin_page_limit')
             : 10;
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
     }
 }

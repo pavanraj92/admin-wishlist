@@ -2,110 +2,112 @@
 
 @section('title', 'Wislists Management')
 
-@section('page-title', 'Wislist Manager')
+@section('Wislists-title', 'Wislist Manager')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item active" aria-current="page">Wislist Manager</li>
+<li class="breadcrumb-item active" aria-current="page">Wislist Manager</li>
 @endsection
 
 @section('content')
-    <!-- Container fluid  -->
-    <div class="container-fluid">
-        <!-- Start Page Content -->
-        <div class="row">
-            <div class="col-12">
-                <div class="card card-body">
-                    <h4 class="card-title">Filter</h4>
-                    <form action="{{ route('admin.wishlists.index') }}" method="GET" id="filterForm">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="title">User id </label>
-                                    <input type="text" name="keyword" id="keyword" class="form-control"
-                                        value="{{ app('request')->query('keyword') }}" placeholder="Enter title">
-                                </div>
+<!-- Container fluid  -->
+<div class="container-fluid">
+    <!-- Start Page Content -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card card-body">
+                <h4 class="card-title">Filter</h4>
+                <form action="{{ route('admin.wishlists.index') }}" method="GET" id="filterForm">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="title">User id </label>
+                                <input type="text" name="keyword" id="keyword" class="form-control"
+                                    value="{{ app('request')->query('keyword') }}" placeholder="Enter title">
                             </div>
-                            <div class="col-auto mt-1 text-right">
-                                <div class="form-group">
-                                    <label for="created_at">&nbsp;</label>
-                                    <button type="submit" form="filterForm" class="btn btn-primary mt-4">Filter</button>
-                                    <a href="{{ route('admin.wishlists.index') }}" class="btn btn-secondary mt-4">Reset</a>
-                                </div>
+                        </div>
+                        <div class="col-auto mt-1 text-right">
+                            <div class="form-group">
+                                <label for="created_at">&nbsp;</label>
+                                <button type="submit" form="filterForm" class="btn btn-primary mt-4">Filter</button>
+                                <a href="{{ route('admin.wishlists.index') }}" class="btn btn-secondary mt-4">Reset</a>
                             </div>
-                        </div>                       
-                    </form>
-                </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        {{-- <h4 class="card-title">Manage Wishlist</h4> --}}
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th scope="col">S. No.</th>
-                                        <th>@sortablelink('title', 'Title', [], ['style' => 'color: #4F5467; text-decoration: none;'])</th>
-                                        <th>@sortablelink('status', 'Status', [], ['style' => 'color: #4F5467; text-decoration: none;'])</th>
-                                        <th>@sortablelink('created_at', 'Created At', [], ['style' => 'color: #4F5467; text-decoration: none;'])</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if (isset($wishlists) && $wishlists->count() > 0)
-                                        @php
-                                            $i = ($wishlists->currentPage() - 1) * $pages->perPage() + 1;
-                                        @endphp
-                                        @foreach ($wishlists as $wishlist)
-                                            <tr>
-                                                <th scope="row">{{ $i }}</th>
-                                                <td>{{ $wishlist->title }}</td>
-                                                <td>
-                                                    {{ $wishlist->created_at ? $wishlist->created_at->format(config('GET.admin_date_time_format') ?? 'Y-m-d H:i:s') : '—' }}
-                                                </td>
-                                                <td style="width: 10%;">
-                                                    @admincan('wishlists_manager_view')
-                                                        <a href="{{ route('admin.pages.show', $page) }}" data-toggle="tooltip"
-                                                            data-placement="top" title="View this record"
-                                                            class="btn btn-warning btn-sm"><i class="mdi mdi-eye"></i></a>
-                                                    @endadmincan
-                                                    @admincan('wishlists_manager_delete ')
-                                                        <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top"
-                                                            title="Delete this record"
-                                                            data-url="{{ route('admin.pages.destroy', $page) }}"
-                                                            data-text="Are you sure you want to delete this record?"
-                                                            data-method="DELETE" class="btn btn-danger btn-sm delete-record"><i
-                                                                class="mdi mdi-delete"></i></a>
-                                                    @endadmincan
-                                                </td>
-                                            </tr>
-                                            @php
-                                                $i++;
-                                            @endphp
-                                        @endforeach
-                                    @else
-                                        <tr>
-                                            <td colspan="5" class="text-center">No records found.</td>
-                                        </tr>
-                                    @endif
-                                </tbody>
-                            </table>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    {{-- <h4 class="card-title">Manage Wishlist</h4> --}}
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">S. No.</th>
+                                    <th>@sortablelink('user_id', 'User', [], ['style' => 'color: #4F5467; text-decoration: none;'])</th>
+                                    <th>@sortablelink('product_id', 'Product', [], ['style' => 'color: #4F5467; text-decoration: none;'])</th>
+                                    <th>@sortablelink('created_at', 'Created At', [], ['style' => 'color: #4F5467; text-decoration: none;'])</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (isset($wishlists) && $wishlists->count() > 0)
+                                @php
+                                $i = ($wishlists->currentPage() - 1) * $pages->perPage() + 1;
+                                @endphp
+                                @foreach ($wishlists as $wishlist)
+                                <tr>
+                                    <th scope="row">{{ $i }}</th>
+                                    <td>{{ $wishlist->user?->name ?? 'N/A' }}</td>
+                                    <td>{{ $wishlist->product?->name ?? 'N/A' }}</td>
+                                    <td>
+                                        {{ $wishlist->created_at ? $wishlist->created_at->format(config('GET.admin_date_time_format') ?? 'Y-m-d H:i:s') : '—' }}
+                                    </td>
+                                    <td style="width: 10%;">
+                                        @admincan('wishlists_manager_view')
+                                        <a href="{{ route('admin.wishlist.show', $wishlist) }}" data-toggle="tooltip"
+                                            data-placement="top" title="View this record"
+                                            class="btn btn-warning btn-sm"><i class="mdi mdi-eye"></i></a>
+                                        @endadmincan
+                                        @admincan('wishlists_manager_delete ')
+                                        <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top"
+                                            title="Delete this record"
+                                            data-url="{{ route('admin.wishlist.destroy', $wishlist) }}"
+                                            data-text="Are you sure you want to delete this record?"
+                                            data-method="DELETE" class="btn btn-danger btn-sm delete-record"><i
+                                                class="mdi mdi-delete"></i></a>
+                                        @endadmincan
+                                    </td>
+                                </tr>
+                                @php
+                                $i++;
+                                @endphp
+                                @endforeach
+                                @else
+                                <tr>
+                                    <td colspan="4" class="text-center">No records found.</td>
+                                </tr>
+                                @endif
+                            </tbody>
+                        </table>
 
-                            <!--pagination move the right side-->
-                            @if ($pages->count() > 0)
-                                {{ $pages->links('admin::pagination.custom-admin-pagination') }}
-                            @endif
+                        <!--pagination move the right side-->
+                        @if ($wishlists->count() > 0)
+                        {{ $wishlists->links('admin::pagination.custom-admin-pagination') }}
+                        @endif
 
-                        </div>
+
                     </div>
                 </div>
             </div>
-
-
         </div>
-        <!-- End PAge Content -->
+
+
     </div>
-    <!-- End Container fluid  -->
+    <!-- End PAge Content -->
+</div>
+<!-- End Container fluid  -->
 @endsection

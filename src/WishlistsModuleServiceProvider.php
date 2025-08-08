@@ -17,7 +17,7 @@ class WishlistsModuleServiceProvider extends ServiceProvider
             base_path('Modules/Wishlists/resources/views'), // Published module views first
             resource_path('views/admin/wishlist'), // Published views second
             __DIR__ . '/../resources/views'      // Package views as fallback
-        ], 'page');
+        ], 'wishlists');
 
         $this->mergeConfigFrom(__DIR__.'/../config/wishlist.php', 'wishlists.constants');
         
@@ -27,7 +27,7 @@ class WishlistsModuleServiceProvider extends ServiceProvider
         }
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         // Also load migrations from published module if they exist
-        if (is_dir(base_path('Modules/Pages/database/migrations'))) {
+        if (is_dir(base_path('Modules/Wishlists/database/migrations'))) {
             $this->loadMigrationsFrom(base_path('Modules/Wishlists/database/migrations'));
         }
         $this->mergeConfigFrom(__DIR__ . '/../config/wishlist.php', 'wishlist.config');
