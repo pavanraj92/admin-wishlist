@@ -1,0 +1,21 @@
+{
+  "name": "admin/wishlists",
+  "description": "Create and manage static content pages (e.g., About Us, Terms & Conditions) to keep the site content updated and organized.",
+  "type": "library",
+  "version": "1.0.0",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "admin\\wishlists\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "admin\\wishlists\\WishlistsModuleServiceProvider"
+      ]
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
