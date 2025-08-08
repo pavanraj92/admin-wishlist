@@ -1,11 +1,11 @@
 @extends('admin::admin.layouts.master')
 
-@section('title', 'Wislists Management')
+@section('title', 'Wishlists Management')
 
-@section('Wislists-title', 'Wislist Manager')
+@section('page-title', 'Wishlist Manager')
 
 @section('breadcrumb')
-<li class="breadcrumb-item active" aria-current="page">Wislist Manager</li>
+<li class="breadcrumb-item active" aria-current="page">Wishlist Manager</li>
 @endsection
 
 @section('content')
@@ -20,7 +20,7 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="title">User id </label>
+                                <!-- <label for="title">User id </label> -->
                                 <input type="text" name="keyword" id="keyword" class="form-control"
                                     value="{{ app('request')->query('keyword') }}" placeholder="Enter title">
                             </div>
@@ -47,8 +47,8 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col">S. No.</th>
-                                    <th>@sortablelink('user_id', 'User', [], ['style' => 'color: #4F5467; text-decoration: none;'])</th>
-                                    <th>@sortablelink('product_id', 'Product', [], ['style' => 'color: #4F5467; text-decoration: none;'])</th>
+                                    <th>@sortablelink('user_id', 'User Name', [], ['style' => 'color: #4F5467; text-decoration: none;'])</th>
+                                    <th>@sortablelink('product_id', 'Product Name', [], ['style' => 'color: #4F5467; text-decoration: none;'])</th>
                                     <th>@sortablelink('created_at', 'Created At', [], ['style' => 'color: #4F5467; text-decoration: none;'])</th>
                                     <th scope="col">Action</th>
                                 </tr>
