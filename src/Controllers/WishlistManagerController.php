@@ -12,13 +12,13 @@ class WishlistManagerController extends Controller
     {
         $this->middleware('admincan_permission:wishlists_manager_list')->only(['index']);
         $this->middleware('admincan_permission:wishlists_manager_view')->only(['show']);
-        $this->middleware('admincan_permission:wishlists_manager_delete')->only(['destroy']);
     }
 
     public function index(Request $request)
     {
         try {
             $wishlists = Wishlist::with(['user', 'product'])
+                ->filter($request->only(['keyword'])) 
                 ->sortable()
                 ->latest()
                 ->paginate(Wishlist::getPerPageLimit())
@@ -37,16 +37,6 @@ class WishlistManagerController extends Controller
             return view('wishlists::admin.show', compact('wishlist'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Failed to load wishlist: ' . $e->getMessage());
-        }
-    }
-
-    public function destroy(Wishlist $wishlist)
-    {
-        try {
-            $wishlist->delete();
-            return response()->json(['success' => true, 'message' => 'Record deleted successfully.']);
-        } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Failed to delete record.', 'error' => $e->getMessage()], 500);
         }
     }
 }

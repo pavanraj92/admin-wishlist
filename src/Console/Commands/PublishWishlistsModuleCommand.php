@@ -73,12 +73,10 @@ class PublishWishlistsModuleCommand extends Command
             // Main namespace transformations
             'namespace admin\\wishlists\\Controllers;' => 'namespace Modules\\Wishlists\\app\\Http\\Controllers\\Admin;',
             'namespace admin\\wishlists\\Models;' => 'namespace Modules\\Wishlists\\app\\Models;',
-            'namespace admin\\wishlists\\Requests;' => 'namespace Modules\\Wishlists\\app\\Http\\Requests;',
             
             // Use statements transformations
             'use admin\\wishlists\\Controllers\\' => 'use Modules\\Wishlists\\app\\Http\\Controllers\\Admin\\',
             'use admin\\wishlists\\Models\\' => 'use Modules\\Wishlists\\app\\Models\\',
-            'use admin\\wishlists\\Requests\\' => 'use Modules\\Wishlists\\app\\Http\\Requests\\',
             
             // Class references in routes
             'admin\\wishlists\\Controllers\\WishlistManagerController' => 'Modules\\Wishlists\\app\\Http\\Controllers\\Admin\\WishlistManagerController',

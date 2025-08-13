@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Config;
 use Kyslik\ColumnSortable\Sortable;
-use App\Models\User;
-use App\Models\Product;
+use Illuminate\Support\Facades\Schema;
 
 class Wishlist extends Model
 {
@@ -18,34 +17,41 @@ class Wishlist extends Model
     protected $fillable = [
         'user_id',
         'product_id',
+        'course_id',
     ];
 
     public $sortable = [
         'user_id',
         'product_id',
+        'course_id'
     ];
 
-    protected static function boot()
-    {
-        parent::boot();
 
-        static::creating(function ($wishlist) {
-            if (empty($wishlist->slug)) {
-                $wishlist->slug = Str::slug($wishlist->title);
-            }
-        });
-
-        static::updating(function ($wishlist) {
-            if (empty($wishlist->slug)) {
-                $wishlist->slug = Str::slug($wishlist->title);
-            }
-        });
-    }
-    public function scopeFilter($query, $title)
+    public function scopeFilter($query, $filters)
     {
-        if ($title) {
-            return $query->where('title', 'like', '%' . $title . '%');
+        if (!empty($filters['keyword'])) {
+            $keyword = $filters['keyword'];
+
+            if (Schema::hasTable('users') && method_exists($this, 'user')) {
+                $query->whereHas('user', function ($q) use ($keyword) {
+                    $q->whereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ["%{$keyword}%"]);
+                });
+            }
+
+            if (Schema::hasTable('products') && method_exists($this, 'product')) {
+                $query->orWhereHas('product', function ($q) use ($keyword) {
+                    $q->where('name', 'like', "%{$keyword}%");
+                });
+            }
+
+            if (Schema::hasTable('courses') && method_exists($this, 'course')) {
+                $query->orWhereHas('course', function ($q) use ($keyword) {
+                    $q->where('name', 'like', "%{$keyword}%");
+                });
+            }
+
         }
+        
         return $query;
     }
 
@@ -58,11 +64,21 @@ class Wishlist extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        if (class_exists(\admin\users\Models\User::class)) {
+            return $this->belongsTo(\admin\users\Models\User::class, 'user_id');
+        }
     }
-
     public function product()
     {
-        return $this->belongsTo(Product::class);
+        if (class_exists(\admin\products\Models\Product::class)) {
+            return $this->belongsTo(\admin\products\Models\Product::class);
+        }
+    }
+
+    public function course()
+    {
+        if (class_exists(\admin\courses\Models\Course::class)) {
+            return $this->belongsTo(\admin\courses\Models\Course::class);
+        }
     }
 }

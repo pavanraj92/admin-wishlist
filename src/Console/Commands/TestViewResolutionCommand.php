@@ -17,7 +17,6 @@ class TestViewResolutionCommand extends Command
         // Test views to check
         $testViews = [
             'admin.index',
-            'admin.createOrEdit',
             'admin.show',
         ];
         

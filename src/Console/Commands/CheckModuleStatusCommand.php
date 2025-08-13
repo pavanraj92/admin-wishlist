@@ -20,7 +20,6 @@ class CheckModuleStatusCommand extends Command
             'Model' => base_path('Modules/Wishlists/app/Models/Wishlist.php'),
             'Routes' => base_path('Modules/Wishlists/routes/web.php'),
             'Views' => base_path('Modules/Wishlists/resources/views'),
-            'Config' => base_path('Modules/Wishlists/config/wishlists.php'),
         ];
 
         $this->info("\n Module Files Status:");
