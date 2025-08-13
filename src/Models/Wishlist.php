@@ -21,11 +21,32 @@ class Wishlist extends Model
     ];
 
     public $sortable = [
-        'user_id',
-        'product_id',
-        'course_id'
+        'user',
+        'product.name',
+        'course.title',
     ];
 
+    public function userSortable($query, $direction)
+    {
+         return $query
+        ->leftJoin('users', 'wishlists.user_id', '=', 'users.id')
+        ->orderByRaw("CONCAT(users.first_name, ' ', users.last_name) {$direction}")
+        ->select('wishlists.*');
+    }
+
+    public function courseSortable($query, $direction)
+    {
+        return $query->join('courses', 'wishlists.course_id', '=', 'courses.id')
+            ->orderBy('courses.title', $direction)
+            ->select('wishlists.*');
+    }
+
+    public function productSortable($query, $direction)
+    {
+        return $query->join('products', 'wishlists.product_id', '=', 'products.id')
+            ->orderBy('products.name', $direction)
+            ->select('wishlists.*');
+    }
 
     public function scopeFilter($query, $filters)
     {
