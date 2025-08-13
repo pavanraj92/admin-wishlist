@@ -1,31 +1,26 @@
-# Admin Page (CMS) Manager
+# Admin Wishlist Manager
 
-This package provides an Admin Page (CMS) Manager for managing content pages within your application.
+This package provides an Admin Wishlist Manager for managing user wishlists within your application.
 
 ## Features
 
-- Create, edit, and delete CMS pages
-- Organize pages with categories or hierarchies
-- WYSIWYG editor support
-- SEO-friendly URLs and metadata management
-- User permissions and access control
+- View all wishlists created by users
+- View details of individual wishlists
+- Search and filter wishlists in the admin panel
+- Paginated wishlist listing
+- User permissions and access control for wishlist management
 
 ## Usage
 
-1. **Create**: Add a new page by providing a title, slug, content, and optional metadata.
-2. **Read**: View all pages in a paginated list or access individual page details.
-3. **Update**: Edit page content, metadata, or organizational structure.
-4. **Delete**: Remove pages that are no longer needed.
+1. **Read**: View all wishlists in a paginated list.
+2. **Show**: View details of a specific wishlist.
 
 ## Example Endpoints
 
-| Method | Endpoint         | Description              |
-|--------|------------------|--------------------------|
-| GET    | `/pages`         | List all pages           |
-| POST   | `/pages`         | Create a new page        |
-| GET    | `/pages/{id}`    | Get page details         |
-| PUT    | `/pages/{id}`    | Update a page            |
-| DELETE | `/pages/{id}`    | Delete a page            |
+| Method | Endpoint           | Description              |
+|--------|--------------------|--------------------------|
+| GET    | `/wishlists`       | List all wishlists       |
+| GET    | `/wishlists/{id}`  | Show wishlist details    |
 
 ## Requirements
 
@@ -40,7 +35,7 @@ Add the following to your `composer.json` to use the package from a local path:
 "repositories": [
     {
         "type": "vcs",
-        "url": "https://github.com/pavanraj92/admin-pages.git"
+         "url": "https://github.com/pavanraj92/admin-wishlist.git"
     }
 ]
 ```
@@ -48,30 +43,29 @@ Add the following to your `composer.json` to use the package from a local path:
 ## Installation
 
 ```bash
-composer require admin/pages:@dev
+composer require admin/wishlists:@dev
 ```
 
 ## Usage
 
 1. Publish the configuration and migration files:
     ```bash
-    php artisan pages:publish --force
+    php artisan wishlists:publish --force
 
     composer dump-autoload
     
     php artisan migrate
     ```
-2. Access the CMS manager from your admin dashboard.
+2. Access the Wishlist manager from your admin dashboard.
 
 ## Example
 
 ```php
-// Creating a new page
-$page = new Page();
-$page->title = 'About Us';
-$page->slug = 'about-us';
-$page->content = '<p>Welcome to our website!</p>';
-$page->save();
+// Viewing all wishlists
+$wishlists = Wishlist::paginate(20);
+
+// Viewing a single wishlist
+$wishlist = Wishlist::find($id);
 ```
 
 ## Customization
@@ -80,4 +74,4 @@ You can customize views, routes, and permissions by editing the configuration fi
 
 ## License
 
-This package is open-sourced software licensed under the Dotsquares.write code in the readme.md file regarding to the admin/page(CMS) manager
+This package is open-sourced software licensed under the MIT license.

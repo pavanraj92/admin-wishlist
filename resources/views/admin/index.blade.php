@@ -89,7 +89,7 @@
                                                     </td>
                                                 @elseif(class_exists(\admin\users\Models\Course::class))
                                                     <td>
-                                                        {{ $wishlist?->course?->name }}
+                                                        {{ $wishlist?->course?->title }}
                                                     </td>
                                                 @endif
                                                 <td>

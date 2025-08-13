@@ -58,7 +58,7 @@
                                                         <p>{{ $wishlist?->product?->name ?? 'N/A' }}</p>
                                                     @elseif(class_exists(\admin\courses\Models\Course::class))
                                                         <label class="font-weight-bold">Course:</label>
-                                                        <p>{{ $wishlist?->course?->name ?? 'N/A' }}</p>
+                                                        <p>{{ $wishlist?->course?->title ?? 'N/A' }}</p>
                                                     @endif
                                                 </div>
                                             </div>
