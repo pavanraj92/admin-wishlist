@@ -47,7 +47,7 @@
                                 <thead class="thead-light">
                                     <tr>
                                         <th scope="col">S. No.</th>
-                                        <th>User Name</th>
+                                        <th>@sortablelink('user', 'User', [], ['class' => 'text-dark'])</th>
                                         @php
                                             $productPackageInstalled = \DB::table('packages')
                                                 ->where(['package_name' => 'admin/products', 'is_installed' => 1])
@@ -60,9 +60,9 @@
                                         @endphp
 
                                         @if ($productPackageInstalled)
-                                            <th scope="col">Product</th>
+                                            <th scope="col">@sortablelink('product.name', 'Product', [], ['class' => 'text-dark'])</th>
                                         @elseif($coursePackageInstalled)
-                                            <th scope="col">Course</th>
+                                            <th scope="col">@sortablelink('course.title', 'Course', [], ['class' => 'text-dark'])</th>
                                         @endif
                                         <th>Created At</th>
                                         <th scope="col">Action</th>
