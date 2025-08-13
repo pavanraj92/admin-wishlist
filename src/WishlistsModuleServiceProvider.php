@@ -18,8 +18,6 @@ class WishlistsModuleServiceProvider extends ServiceProvider
             resource_path('views/admin/wishlist'), // Published views second
             __DIR__ . '/../resources/views'      // Package views as fallback
         ], 'wishlists');
-
-        $this->mergeConfigFrom(__DIR__.'/../config/wishlist.php', 'wishlists.constants');
         
         // Also register module views with a specific namespace for explicit usage
         if (is_dir(base_path('Modules/Wishlists/resources/views'))) {
@@ -30,11 +28,6 @@ class WishlistsModuleServiceProvider extends ServiceProvider
         if (is_dir(base_path('Modules/Wishlists/database/migrations'))) {
             $this->loadMigrationsFrom(base_path('Modules/Wishlists/database/migrations'));
         }
-        $this->mergeConfigFrom(__DIR__ . '/../config/wishlist.php', 'wishlist.config');
-        // Also merge config from published module if it exists
-        if (file_exists(base_path('Modules/Wishlists/config/wishlist.php'))) {
-            $this->mergeConfigFrom(base_path('Modules/Wishlists/config/wishlist.php'), 'wishlist.config');
-        }
         
         // Only publish automatically during package installation, not on every request
         // Use 'php artisan pages:publish' command for manual publishing
@@ -42,7 +35,6 @@ class WishlistsModuleServiceProvider extends ServiceProvider
         
         // Standard publishing for non-PHP files
         $this->publishes([
-            __DIR__ . '/../config/' => base_path('Modules/Wishlists/config/'),
             __DIR__ . '/../database/migrations' => base_path('Modules/Wishlists/database/migrations'),
             __DIR__ . '/../resources/views' => base_path('Modules/Wishlists/resources/views/'),
         ], 'wishlist');
@@ -127,12 +119,10 @@ class WishlistsModuleServiceProvider extends ServiceProvider
             // Main namespace transformations
             'namespace admin\\wishlists\\Controllers;' => 'namespace Modules\\wishlists\\app\\Http\\Controllers\\Admin;',
             'namespace admin\\wishlists\\Models;' => 'namespace Modules\\wishlists\\app\\Models;',
-            'namespace admin\\wishlists\\Requests;' => 'namespace Modules\\wishlists\\app\\Http\\Requests;',
             
             // Use statements transformations
             'use admin\\wishlists\\Controllers\\' => 'use Modules\\wishlists\\app\\Http\\Controllers\\Admin\\',
             'use admin\\wishlists\\Models\\' => 'use Modules\\wishlists\\app\\Models\\',
-            'use admin\\wishlists\\Requests\\' => 'use Modules\\wishlists\\app\\Http\\Requests\\',
             
             // Class references in routes
             'admin\\wishlists\\Controllers\\WishlistManagerController' => 'Modules\\wishlists\\app\\Http\\Controllers\\Admin\\WishlistManagerController',
