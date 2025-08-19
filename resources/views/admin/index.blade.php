@@ -22,7 +22,7 @@
                                 <div class="form-group">
                                     <label for="title">Keyword</label>
                                     <input type="text" name="keyword" id="keyword" class="form-control"
-                                        value="{{ app('request')->query('keyword') }}" placeholder="Enter keyword">
+                                        value="{{ app('request')->query('keyword') }}" placeholder="Enter user or product name">
                                 </div>
                             </div>
                             <div class="col-auto mt-1 text-right">
@@ -41,7 +41,6 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        {{-- <h4 class="card-title">Manage Wishlist</h4> --}}
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class="thead-light">
@@ -64,7 +63,7 @@
                                         @elseif($coursePackageInstalled)
                                             <th scope="col">@sortablelink('course.title', 'Course', [], ['class' => 'text-dark'])</th>
                                         @endif
-                                        <th>Created At</th>
+                                        <th scope="col">@sortablelink('created_at', 'Created At', [], ['class' => 'text-dark'])</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -125,8 +124,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
         <!-- End PAge Content -->
     </div>

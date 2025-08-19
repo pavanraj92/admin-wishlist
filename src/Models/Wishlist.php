@@ -24,6 +24,7 @@ class Wishlist extends Model
         'user',
         'product.name',
         'course.title',
+        'created_at'
     ];
 
     public function userSortable($query, $direction)
