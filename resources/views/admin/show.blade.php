@@ -35,7 +35,7 @@
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-header bg-primary">
-                                        <h5 class="mb-0 text-white font-bold">Return Refund Information</h5>
+                                        <h5 class="mb-0 text-white font-bold">Wishlist Information</h5>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
