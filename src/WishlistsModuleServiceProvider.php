@@ -37,7 +37,7 @@ class WishlistsModuleServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../database/migrations' => base_path('Modules/Wishlists/database/migrations'),
             __DIR__ . '/../resources/views' => base_path('Modules/Wishlists/resources/views/'),
-        ], 'wishlist');
+        ], 'wishlists');
        
         $this->registerAdminRoutes();
     }
