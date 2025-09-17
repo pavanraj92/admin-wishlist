@@ -21,7 +21,7 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-between mb-3">
                             <h4 class="card-title mb-0">
-                                @if (class_exists(\admin\users\Models\User::class))
+                                @if (admin\wishlists\Models\Wishlist::isModuleInstalled('users'))
                                     {{ $wishlist?->user?->full_name ?? 'N/A' }}
                                 @endif
                             </h4>
@@ -43,7 +43,7 @@
                                                 <div class="form-group">
                                                     <label class="font-weight-bold">User:</label>
                                                     <p>
-                                                        @if (class_exists(\admin\users\Models\User::class))
+                                                        @if (admin\wishlists\Models\Wishlist::isModuleInstalled('users'))
                                                             {{ $wishlist?->user?->full_name ?? 'N/A' }}
                                                         @else
                                                             N/A
@@ -53,10 +53,10 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    @if (class_exists(\admin\products\Models\Product::class))
+                                                    @if (admin\wishlists\Models\Wishlist::isModuleInstalled('products'))
                                                         <label class="font-weight-bold">Product:</label>
                                                         <p>{{ $wishlist?->product?->name ?? 'N/A' }}</p>
-                                                    @elseif(class_exists(\admin\courses\Models\Course::class))
+                                                    @elseif(admin\wishlists\Models\Wishlist::isModuleInstalled('courses'))
                                                         <label class="font-weight-bold">Course:</label>
                                                         <p>{{ $wishlist?->course?->title ?? 'N/A' }}</p>
                                                     @endif

@@ -76,17 +76,17 @@
                                             <tr>
                                                 <th scope="row">{{ $i }}</th>
                                                 <td>
-                                                    @if (class_exists(\admin\users\Models\User::class))
+                                                    @if (admin\wishlists\Models\Wishlist::isModuleInstalled('users'))
                                                         {{ $wishlist?->user?->full_name ?? 'N/A' }}
                                                     @else
                                                         N/A
                                                     @endif
                                                 </td>
-                                                @if (class_exists(\admin\products\Models\Product::class))
+                                                @if (admin\wishlists\Models\Wishlist::isModuleInstalled('products'))
                                                     <td>
                                                         {{ $wishlist?->product?->name }}
                                                     </td>
-                                                @elseif(class_exists(\admin\users\Models\Course::class))
+                                                @elseif(admin\wishlists\Models\Wishlist::isModuleInstalled('courses'))
                                                     <td>
                                                         {{ $wishlist?->course?->title }}
                                                     </td>
